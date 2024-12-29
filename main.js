@@ -1,5 +1,6 @@
 
 const view = {
+    start: document.getElementById('start'),
     score: document.querySelector("#score strong"),
     question: document.getElementById('question'),
     result: document.getElementById('info'),
@@ -8,6 +9,14 @@ const view = {
             target.setAttribute(key, attributes[key]);
         }
         target.innerHTML = content;
+    },
+
+    show(element){
+        element.style.display = 'block';
+    },
+
+    hide(element){
+        element.style.display = 'none';
     }
 }
 
@@ -22,6 +31,7 @@ const quiz = [
 const game  = {
 
     start(quiz){
+        view.show(view.start);
         this.questions = [...quiz];
         this.score = 0;
 
@@ -55,7 +65,10 @@ const game  = {
 
     gameOver(){
         view.render(view.info,`Game Over, you scored ${this.score}`)
+        view.hide(view.start);
     }
+
+    
 }
 
-game.start(quiz);
+view.start.addEventListener('click',()=>game.start(quiz));
